@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AcaraController;
+use App\Http\Controllers\Admin\ProgramController;
+use App\Http\Controllers\Admin\AlbumController;
+use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +19,17 @@ use App\Http\Controllers\Admin\AcaraController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('layouts.frontend.home');
+// });
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('galeriFoto/{id}', [HomeController::class, 'foto'])->name('albumFoto');
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
-    Route::resources([
-        'acara' => AcaraController::class
-    ]);
+    Route::resource('acara', AcaraController::class);
+    Route::get('album/{id}/foto', [AlbumController::class, 'foto'])->name('album.foto');
+    Route::resource('program', ProgramController::class);
+    Route::resource('album', AlbumController::class);
+    Route::resource('galeri', GaleriController::class);
 });

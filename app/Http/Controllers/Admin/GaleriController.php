@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Galeri;
-use App\Models\Program;
+use App\Models\Album;
 use Illuminate\Support\Facades\Storage;
 
 class GaleriController extends Controller
@@ -17,7 +17,9 @@ class GaleriController extends Controller
      */
     public function index()
     {
-        return view('pages.backend.galeri.index');
+        $items = Galeri::with(['album'])->get();
+
+        return view('pages.backend.galeri.index', compact('items'));
     }
 
     /**
@@ -27,9 +29,9 @@ class GaleriController extends Controller
      */
     public function create()
     {
-        $programs = Program::All();
+        $albums = Album::all();
 
-        return view('pages.backend.galeri.create', compact('programs'));
+        return view('pages.backend.galeri.create', compact('albums'));
     }
 
     /**
@@ -92,4 +94,12 @@ class GaleriController extends Controller
     {
         //
     }
+
+    // public function galeri($id)
+    // {
+    //     $galeri = Galeri::findOrFail($id);
+    //     $items = Galeri::with('program')->where('programs_id', $galeri->programs_id)->get();
+
+    //     return view('pages.backend.galeri.fotopage', compact('galeri', 'items'));
+    // }
 }

@@ -32,6 +32,21 @@
         <i class="fas fa-fw fa-chart-area"></i>
         <span>Acara</span></a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{route('program.index')}}">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Program</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{route('album.index')}}">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Album</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{route('galeri.index')}}">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Galeri</span></a>
+    </li>
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">

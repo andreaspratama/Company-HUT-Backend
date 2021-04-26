@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Album;
 use App\Models\Galeri;
-use App\Models\Program;
 use Illuminate\Support\Facades\Storage;
 
-class GaleriController extends Controller
+class AlbumController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,9 @@ class GaleriController extends Controller
      */
     public function index()
     {
-        return view('pages.backend.galeri.index');
+        $items = Album::all();
+
+        return view('pages.backend.album.index', compact('items'));
     }
 
     /**
@@ -27,9 +29,7 @@ class GaleriController extends Controller
      */
     public function create()
     {
-        $programs = Program::All();
-
-        return view('pages.backend.galeri.create', compact('programs'));
+        return view('pages.backend.album.create');
     }
 
     /**
@@ -41,11 +41,10 @@ class GaleriController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['photo'] = $request->file('photo')->store('assets/galeri', 'public');
 
-        Galeri::create($data);
+        Album::create($data);
 
-        return redirect()->route('galeri.index');
+        return redirect()->route('album.index');
     }
 
     /**
@@ -91,5 +90,13 @@ class GaleriController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function foto(Request $request, $id)
+    {
+        $album = Album::findOrFail($id);
+        $items = Galeri::with('album')->where('albums_id', $id)->get();
+
+        return view('pages.backend.album.fotopage', compact('album', 'items'));
     }
 }

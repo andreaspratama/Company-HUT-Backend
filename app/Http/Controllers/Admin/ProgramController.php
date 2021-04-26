@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Galeri;
 use App\Models\Program;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
-class GaleriController extends Controller
+class ProgramController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,9 @@ class GaleriController extends Controller
      */
     public function index()
     {
-        return view('pages.backend.galeri.index');
+        $items = Program::all();
+
+        return view('pages.backend.program.index', compact('items'));
     }
 
     /**
@@ -27,9 +29,7 @@ class GaleriController extends Controller
      */
     public function create()
     {
-        $programs = Program::All();
-
-        return view('pages.backend.galeri.create', compact('programs'));
+        return view('pages.backend.program.create');
     }
 
     /**
@@ -41,11 +41,12 @@ class GaleriController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['photo'] = $request->file('photo')->store('assets/galeri', 'public');
+        $data['slug'] = Str::slug($request->judul);
+        $data['photo'] = $request->file('photo')->store('assets/program', 'public');
 
-        Galeri::create($data);
+        Program::create($data);
 
-        return redirect()->route('galeri.index');
+        return redirect()->route('program.index');
     }
 
     /**
