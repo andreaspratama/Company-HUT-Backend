@@ -21,7 +21,7 @@
                     Tambah
                 </h5>
                 <div class="card-body">
-                    <form action="{{route('album.store')}}" method="POST">
+                    <form action="{{route('album.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="judul">Judul</label>
@@ -30,8 +30,9 @@
                         <div class="form-group">
                             <label for="isactive">Isactive</label>
                             <select class="form-control" name="isactive">
-                              <option value="1">Yaa</option>
-                              <option value="0">Tidak</option>
+                              <option>-- Pilih Status --</option>
+                              <option value="1">Active</option>
+                              <option value="0">Tidak Active</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -43,3 +44,10 @@
     </div>
     <!-- /.container-fluid -->
 @endsection
+
+@push('addon-script')
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'editor' );
+    </script>
+@endpush

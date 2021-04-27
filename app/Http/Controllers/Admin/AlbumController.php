@@ -66,7 +66,9 @@ class AlbumController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Album::findOrFail($id);
+
+        return view('pages.backend.album.edit', compact('item'));
     }
 
     /**
@@ -78,7 +80,13 @@ class AlbumController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $item = Album::findOrFail($id);
+
+        $item->update($data);
+
+        return redirect()->route('album.index');
     }
 
     /**
@@ -89,7 +97,11 @@ class AlbumController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Album::findOrFail($id);
+
+        $item->delete();
+
+        return redirect()->route('album.index');
     }
 
     public function foto(Request $request, $id)

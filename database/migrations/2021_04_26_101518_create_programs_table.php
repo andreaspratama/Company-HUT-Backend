@@ -19,8 +19,8 @@ class CreateProgramsTable extends Migration
             $table->string('slug');
             $table->string('waktu');
             $table->string('agenda');
+            $table->longText('deskripsi');
             $table->text('photo');
-            $table->boolean('isactive');
             $table->timestamps();
         });
     }

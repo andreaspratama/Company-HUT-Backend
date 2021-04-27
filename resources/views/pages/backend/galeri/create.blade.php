@@ -27,14 +27,14 @@
                             <label for="albums_id">Album</label>
                             <select class="form-control" name="albums_id">
                               <option>-- Pilih Album --</option>
-                              @foreach ($albums as $a)
-                                <option value="{{$a->id}}">{{$a->judul}}</option>
+                              @foreach ($albums as $i)
+                                <option value="{{$i->id}}">{{$i->judul}}</option>
                               @endforeach
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="photo">Photo</label>
-                            <input type="file" class="form-control-file" name="photo">
+                            <label for="photos">Photo</label>
+                            <input type="file" class="form-control-file" name="photos">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -45,3 +45,10 @@
     </div>
     <!-- /.container-fluid -->
 @endsection
+
+@push('addon-script')
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'editor' );
+    </script>
+@endpush

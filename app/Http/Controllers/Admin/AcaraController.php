@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Galeri;
-use App\Models\Program;
+use App\Models\Acara;
 use Illuminate\Support\Facades\Storage;
 
-class GaleriController extends Controller
+class AcaraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,9 @@ class GaleriController extends Controller
      */
     public function index()
     {
-        return view('pages.backend.galeri.index');
+        $data = Acara::all();
+
+        return view('pages.backend.acara.index', compact('data'));
     }
 
     /**
@@ -27,9 +28,7 @@ class GaleriController extends Controller
      */
     public function create()
     {
-        $programs = Program::All();
-
-        return view('pages.backend.galeri.create', compact('programs'));
+        return view('pages.backend.acara.create');
     }
 
     /**
@@ -41,11 +40,11 @@ class GaleriController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['photo'] = $request->file('photo')->store('assets/galeri', 'public');
+        $data['photo'] = $request->file('photo')->store('assets/acara', 'public');
 
-        Galeri::create($data);
+        Acara::create($data);
 
-        return redirect()->route('galeri.index');
+        return redirect()->route('acara.index');
     }
 
     /**
@@ -56,7 +55,9 @@ class GaleriController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = Acara::findOrFail($id);
+
+        return view('pages.backend.acara.show', compact('item'));
     }
 
     /**
@@ -67,7 +68,9 @@ class GaleriController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Acara::findOrFail($id);
+
+        return view('pages.backend.acara.edit', compact('item'));
     }
 
     /**
@@ -79,7 +82,14 @@ class GaleriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $data['photo'] = $request->file('photo')->store('assets/acara', 'public');
+
+        $item = Acara::findOrFail($id);
+
+        $item->update($data);
+
+        return redirect()->route('acara.index');
     }
 
     /**
@@ -90,6 +100,10 @@ class GaleriController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Acara::findOrFail($id);
+
+        $item->delete();
+
+        return redirect()->route('acara.index');
     }
 }

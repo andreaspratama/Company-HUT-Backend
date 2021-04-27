@@ -17,9 +17,9 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        $items = Program::all();
+        $data = Program::all();
 
-        return view('pages.backend.program.index', compact('items'));
+        return view('pages.backend.program.index', compact('data'));
     }
 
     /**
@@ -57,7 +57,9 @@ class ProgramController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = Program::findOrFail($id);
+
+        return view('pages.backend.program.show', compact('item'));
     }
 
     /**
@@ -68,7 +70,9 @@ class ProgramController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Program::findOrFail($id);
+
+        return view('pages.backend.program.edit', compact('item'));
     }
 
     /**
@@ -80,7 +84,20 @@ class ProgramController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->judul);
+        if($request->photo)
+        {
+            $data['photo'] = $request->file('photo')->store('assets/program', 'public');
+        } else {
+            unset($data['photo']);
+        }
+
+        $item = Program::findOrFail($id);
+
+        $item->update($data);
+
+        return redirect()->route('program.index');
     }
 
     /**
@@ -91,6 +108,10 @@ class ProgramController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Program::findOrFail($id);
+
+        $item->delete();
+
+        return redirect()->route('program.index');
     }
 }

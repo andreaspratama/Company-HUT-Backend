@@ -1,7 +1,7 @@
 @extends('layouts.backend.admin')
 
 @section('title')
-    Acara
+    Buat Program
 @endsection
 
 @section('content')
@@ -36,15 +36,12 @@
                             <input type="text" class="form-control" name="agenda">
                         </div>
                         <div class="form-group">
-                            <label for="photo">Photo</label>
-                            <input type="file" class="form-control-file" name="photo">
+                            <label for="deskripsi">Deskripsi</label>
+                            <textarea class="form-control" name="deskripsi" id="editor"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="isactive">Isactive</label>
-                            <select class="form-control" name="isactive">
-                              <option value="1">Yaa</option>
-                              <option value="0">Tidak</option>
-                            </select>
+                            <label for="photo">Photo</label>
+                            <input type="file" class="form-control-file" name="photo">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -55,3 +52,10 @@
     </div>
     <!-- /.container-fluid -->
 @endsection
+
+@push('addon-script')
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'editor' );
+    </script>
+@endpush

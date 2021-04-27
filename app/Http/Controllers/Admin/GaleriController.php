@@ -43,7 +43,7 @@ class GaleriController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['photo'] = $request->file('photo')->store('assets/galeri', 'public');
+        $data['photos'] = $request->file('photos')->store('assets/galeri', 'public');
 
         Galeri::create($data);
 
@@ -94,12 +94,4 @@ class GaleriController extends Controller
     {
         //
     }
-
-    // public function galeri($id)
-    // {
-    //     $galeri = Galeri::findOrFail($id);
-    //     $items = Galeri::with('program')->where('programs_id', $galeri->programs_id)->get();
-
-    //     return view('pages.backend.galeri.fotopage', compact('galeri', 'items'));
-    // }
 }

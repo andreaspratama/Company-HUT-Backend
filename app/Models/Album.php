@@ -11,8 +11,7 @@ class Album extends Model
 
     protected $guarded = [];
 
-    public function galeri()
-    {
-        return $this->hasMany(Galeri::class,'albums_id');
+    public function galeri(){
+        return $this->hasMany( Galeri::class, 'albums_id', 'id' );
     }
 }

@@ -24,8 +24,8 @@
                     <form action="{{route('acara.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                          <label for="deskripsi">Email address</label>
-                          <input type="text" class="form-control" name="deskripsi">
+                            <label for="deskripsi">Example textarea</label>
+                            <textarea class="form-control" name="deskripsi" id="editor"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="photo">Photo</label>
@@ -40,3 +40,10 @@
     </div>
     <!-- /.container-fluid -->
 @endsection
+
+@push('addon-script')
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'editor' );
+    </script>
+@endpush
